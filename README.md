@@ -1,4 +1,6 @@
 djangocms-styledlink
 ====================
 
-A universal link plugin for django-cms
+A universal, styled link plugin for django-cms.
+
+Not quite ready for production use...
