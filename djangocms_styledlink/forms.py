@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import re
+from importlib import import_module
 
 # from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
@@ -10,7 +11,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from cms.models import Page
 
-from .models import StyledLink
+from .models import StyledLink, STYLEDLINK_MODELS
 
 
 class StyledLinkForm(ModelForm):
@@ -54,11 +55,29 @@ class StyledLinkForm(ModelForm):
         #
         available_objects = []
 
-        available_objects.append({
-            'model': 'CMS Pages',
-            'objects': list(Page.objects.published().filter(publisher_is_draft=False)),
-            'sorted': False,
-        })
+        for item in STYLEDLINK_MODELS:
+            if 'type' in item:
+                model = item['type']
+            else:
+                model = item['_cls_name']
+
+            parts = item['class_path'].rsplit('.', 1)
+            cls = getattr(import_module(parts[0]), parts[1])
+            queryset = cls.objects
+
+            if 'manager_method' in item:
+                queryset = getattr(queryset, item['manager_method'])()
+
+            if 'fields' in item:
+                queryset = queryset.filter(**item['fields'])
+
+            if 'order_by' in item:
+                queryset = queryset.order_by(item['order_by'])
+
+            available_objects.append({
+                'model': model,
+                'objects': list(queryset),
+            })
 
         # Now create our list of choices for the <select> field
         object_choices = []
@@ -76,9 +95,6 @@ class StyledLinkForm(ModelForm):
                 display_text = str(obj)
 
                 obj_list.append((form_value, display_text))
-
-            if not group['sorted']:
-                obj_list = sorted(obj_list, key=lambda x: x[1].lower())
 
             object_choices.append(( group['model'], obj_list, ))
 
