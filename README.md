@@ -5,6 +5,12 @@ A universal, styled link plugin for django-cms.
 The plugin can be used in any placeholder and is "text-enabled" for use in
 text plugins such as djangocms-text-ckeditor.
 
+This code is tested to work with Python 2.7, Django 1.6 and django-cms 3.0, but should work fine with older versions of each (within reason). One thing to note is that users of Python < 2.7 may need to install `importlib` from https://pypi.python.org/pypi/importlib/.
+
+```` python
+pip install importlib
+````
+
 
 ## Operator Configuration
 
@@ -72,6 +78,11 @@ natural order of your model, if any.
 
 NOTE: Each of the defined models **must** define a get_absolute_url() method
 on its objects or the configuration will be rejected.
+
+NOTE: At this time, all choices are rendered as a grouped drop-down list. If
+your project will present a very large number of choices for the configured
+models, you should consider another solution until we can find another
+solution for this project.
 
 
 #### An example of mutliple types.

@@ -28,20 +28,10 @@ class StyledLinkPlugin(CMSPluginBase):
     def get_form(self, request, obj=None, **kwargs):
         Form = super(StyledLinkPlugin, self).get_form(request, obj, **kwargs)
 
-        #
-        # this is bit tricky, since I don't wont override add_view and
-        # change_view
-        #
         class FakeForm(object):
             def __init__(self, Form, site):
                 self.Form = Form
                 self.site = site
-
-                #
-                # base fields are required to be in this fake class, this may
-                # cause some trouble, with new versions of django, if there
-                # will be something more required
-                #
                 self.base_fields = Form.base_fields
 
             def __call__(self, *args, **kwargs):
