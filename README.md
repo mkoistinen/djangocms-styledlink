@@ -1,13 +1,12 @@
-djangocms-styledlink
-====================
+# djangocms-styledlink
 
 A universal, styled link plugin for django-cms.
 
 The plugin can be used in any placeholder and is "text-enabled" for use in
 text plugins such as djangocms-text-ckeditor.
 
-Operator Configuration
-----------------------
+
+## Operator Configuration
 
 Operators can configure the link to go to:
 
@@ -22,10 +21,12 @@ In addition to being very flexible with the link destination, the operator can a
 2.   The link’s title attribute for browser implemented tooltips;
 3.   The target attribute to open the link in one of `same window` (default), `new window`, `parent window`, `top-most frame`;
 4.   Whether search engines should follow this link when indexing via the rel="nofollow" attribute.
+5.   Zero or more styles as defined by the developer (see below);
 
 
-Developer Configuration
------------------------
+## Developer Configuration
+
+### Available Internal Destination Choices
 
 The developer can easily configure which internal objects may be link destinations as follows:
 
@@ -65,13 +66,15 @@ specified as a dict but is converted directly into kwargs internally, so,
 `{'published': True}` becomes `filter(published=True)` for example.
 
 * `order_by`: Specify the ordering of any found objects exactly as you would
-in a queryset.
+in a queryset. If this is not provided, the objects will be ordered in the
+natural order of your model, if any.
+
 
 NOTE: Each of the defined models **must** define a get_absolute_url() method
 on its objects or the configuration will be rejected.
 
 
-### An example of mutliple types.
+#### An example of mutliple types.
 
 ```` python
 DJANGOCMS_STYLEDLINK_MODELS = [
@@ -79,7 +82,6 @@ DJANGOCMS_STYLEDLINK_MODELS = [
         'type': 'Clients',
         'class_path': 'myapp.Client',
         'manager_method': 'published',
-        'filter': { '' },
         'order_by': 'title'
     },
     {
@@ -97,3 +99,12 @@ DJANGOCMS_STYLEDLINK_MODELS = [
 ]
 
 ````
+
+
+### Link Styles
+
+The developer can also define a number of link styles. These are "defined" by creating the appropriate CSS class and rules and adding this class to the StyledLinkStyle objects in the appropriate Administration panel.
+
+The template for the resulting link is carefully crafted using only <span>'s so that the link will work as a inline element and, with appropriate styling, as an inline-block or even block-level element.
+
+Note that the operator can choose multiple styles, so the CSS rules should allow for this.
