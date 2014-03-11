@@ -1,0 +1,1 @@
+<span class="plugin_styledlink{% for style in instance.styles.all %} {{ style.link_class }}{% endfor %}"><span class="inner"><a href="{{ instance.link }}"{% if instance.target %} target="{{ instance.target }}"{% endif %}{% if instance.ext_follow %} rel="nofollow"{% endif %}>{{ instance.label }}</a></span></span>

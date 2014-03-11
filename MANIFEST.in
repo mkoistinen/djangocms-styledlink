@@ -1,0 +1,5 @@
+include LICENSE.txt
+include README.md
+recursive-include djangocms_styledlink/locale *
+recursive-include djangocms_styledlink/templates *
+recursive-exclude * *.py[co]
