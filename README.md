@@ -47,26 +47,31 @@ DJANGOCMS_STYLEDLINK_MODELS = [
 which will allow the user to select any published CMS Page as an internal
 destination.
 
-The developer may update this setting to include other models as follows:
+The developer may update this setting to include other models as well. Each
+model is specified within its own dict.  The resulting drop-down list will
+contain objects grouped by their `type`.  The order of the `type`s in the list
+is defined by the order of their definition in this setting.
 
-The only required attribute is `class_path`, which must be the full path
-to the model.
+The only required attribute for each model is `class_path`, which must be the
+full path to the model.
 
 Additional attributes are:
 
-`type`: This is the name that will appear in the grouped dropdown menu.
-        If not specified, the name of the class will be used E.g., "Page".
+* `type`: This is the name that will appear in the grouped dropdown menu. If
+not specified, the name of the class will be used E.g., "Page".
 
-`filter`: You can specify additional filtering rules here. This must be
-          specified as a dict but is converted directly into kwargs
-          internally, so, `{'published': True}` becomes
-          `filter(published=True)` for example.
+* `filter`: You can specify additional filtering rules here. This must be
+specified as a dict but is converted directly into kwargs internally, so,
+`{'published': True}` becomes `filter(published=True)` for example.
 
-`order_by`: Specify the ordering of any found objects exactly as you would
-            in a queryset.
+* `order_by`: Specify the ordering of any found objects exactly as you would
+in a queryset.
+
+NOTE: Each of the defined models **must** define a get_absolute_url() method
+on its objects or the configuration will be rejected.
 
 
-A full example:
+### An example of mutliple types.
 
 ```` python
 DJANGOCMS_STYLEDLINK_MODELS = [
