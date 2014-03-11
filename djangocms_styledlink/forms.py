@@ -9,8 +9,6 @@ from django.forms import CharField, ChoiceField, Textarea
 from django.forms.models import ModelForm
 from django.utils.translation import ugettext_lazy as _
 
-from cms.models import Page
-
 from .models import StyledLink, STYLEDLINK_MODELS
 
 
@@ -68,8 +66,8 @@ class StyledLinkForm(ModelForm):
             if 'manager_method' in item:
                 queryset = getattr(queryset, item['manager_method'])()
 
-            if 'fields' in item:
-                queryset = queryset.filter(**item['fields'])
+            if 'filter' in item:
+                queryset = queryset.filter(**item['filter'])
 
             if 'order_by' in item:
                 queryset = queryset.order_by(item['order_by'])

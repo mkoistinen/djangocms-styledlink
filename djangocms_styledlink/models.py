@@ -17,7 +17,7 @@ else:
         'CMS Pages': {
             'class_path': 'cms.models.Page',
             'manager_method': 'published',
-            'fields': { 'publisher_is_draft': False },
+            'filter': { 'publisher_is_draft': False },
             'order_by': 'order',
         }
     }
@@ -47,7 +47,7 @@ for model in STYLEDLINK_MODELS:
             )
         )
 
-    # TODO: Check that the configured fields are legit.
+    # TODO: Check that the configured filter are legit.
     # TODO: Check that the order_by configuration is legit
 
     #
