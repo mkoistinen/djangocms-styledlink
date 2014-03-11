@@ -11,17 +11,17 @@ Operator Configuration
 
 Operators can configure the link to go to:
 
-1. A hash (works by itself for linking to an anchor on the current page, or on an internal object page);
-2. An internal object (more below);
-3. An external URL;
-4. A file-download (coming soon).
+1.   A hash (works by itself for linking to an anchor on the current page, or on an internal object page);
+2.   An internal object (more below);
+3.   An external URL;
+4.   A file-download (coming soon).
 
 In addition to being very flexible with the link destination, the operator can also affect:
 
-1. The linked text;
-2. The link’s title attribute for browser implemented tooltips;
-3. The target attribute to open the link in one of { same window, new window, parent window, top-most frame };
-4. Whether search engines should follow this link when indexing via the rel="nofollow" attribute.
+1.   The linked text;
+2.   The link’s title attribute for browser implemented tooltips;
+3.   The target attribute to open the link in one of `same window` (default), `new window`, `parent window`, `top-most frame`;
+4.   Whether search engines should follow this link when indexing via the rel="nofollow" attribute.
 
 
 Developer Configuration
