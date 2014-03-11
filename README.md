@@ -49,21 +49,21 @@ destination.
 
 The developer may update this setting to include other models as follows:
 
-    The only required attribute is `class_path`, which must be the full path
-    to the model.
+The only required attribute is `class_path`, which must be the full path
+to the model.
 
-    Additional attributes are:
+Additional attributes are:
 
-    `type`: This is the name that will appear in the grouped dropdown menu.
-            If not specified, the name of the class will be used E.g., "Page".
+`type`: This is the name that will appear in the grouped dropdown menu.
+        If not specified, the name of the class will be used E.g., "Page".
 
-    `filter`: You can specify additional filtering rules here. This must be
-              specified as a dict but is converted directly into kwargs
-              internally, so, `{'published': True}` becomes
-              `filter(published=True)` for example.
+`filter`: You can specify additional filtering rules here. This must be
+          specified as a dict but is converted directly into kwargs
+          internally, so, `{'published': True}` becomes
+          `filter(published=True)` for example.
 
-    `order_by`: Specify the ordering of any found objects exactly as you would
-                in a queryset.
+`order_by`: Specify the ordering of any found objects exactly as you would
+            in a queryset.
 
 
 A full example:
