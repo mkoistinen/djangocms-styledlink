@@ -8,6 +8,7 @@ text plugins such as djangocms-text-ckeditor.
 This code is tested to work with Python 2.7, Django 1.6 and django-cms 3.0, but should work fine with older versions of each (within reason). One thing to note is that users of Python < 2.7 may need to install `importlib` from https://pypi.python.org/pypi/importlib/.
 
 ```` python
+# This is NOT needed for Django 2.7+
 pip install importlib
 ````
 
