@@ -119,3 +119,9 @@ The developer can also define a number of link styles. These are "defined" by cr
 The template for the resulting link is carefully crafted using only <span>'s so that the link will work as a inline element and, with appropriate styling, as an inline-block or even block-level element.
 
 Note that the operator can choose multiple styles, so the CSS rules should allow for this.
+
+
+## Preview of plugin
+
+![](repo_images/djangocms_styledlink-preview.gif?raw=true)
+
