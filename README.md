@@ -123,5 +123,8 @@ Note that the operator can choose multiple styles, so the CSS rules should allow
 
 ## Preview of plugin
 
+This is an animated GIF preview of the plugin UI for a ficticious set of data.
+It alternates between the plain form and with the drop-menu menu invoked.
+
 ![](repo_images/djangocms_styledlink-preview.gif?raw=true)
 
