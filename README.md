@@ -2,10 +2,23 @@
 
 A universal, styled link plugin for django-cms.
 
+Why would you use this instead of the djangocms-link Plugin? Well, imagine
+that you have a number of CMS pages, but you've also defined an app-hook which
+has a list-view and a detail view that displays any number of model objects?
+At best, your operator would have to type in the url to that object which is
+both annoying for the operator and brittle for the system. If the object's
+absolute_url changes, the link will probably 404 until it is updated.
+
+This plugin also provides more comprehensive support for different link types
+(intra-page, intra-site and external) and better search-engine support.
+
 The plugin can be used in any placeholder and is "text-enabled" for use in
 text plugins such as djangocms-text-ckeditor.
 
-This code is tested to work with Python 2.7, Django 1.6 and django-cms 3.0, but should work fine with older versions of each (within reason). One thing to note is that users of Python < 2.7 may need to install `importlib` from https://pypi.python.org/pypi/importlib/.
+This code is tested to work with Python 2.7, Django 1.6 and django-cms 3.0,
+but should work fine with older versions of each (within reason). One thing to
+note is that users of Python < 2.7 may need to install `importlib` from
+https://pypi.python.org/pypi/importlib/.
 
 ```` python
 # This is NOT needed for Django 2.7+
@@ -35,7 +48,8 @@ In addition to being very flexible with the link destination, the operator can a
 
 ### Available Internal Destination Choices
 
-The developer can easily configure which internal objects may be link destinations as follows:
+The developer can easily configure which internal objects may be link
+destinations as follows:
 
 In the projects settings.py, define the setting `DJANGOCMS_STYLEDLINK_MODELS`.
 
@@ -115,11 +129,16 @@ DJANGOCMS_STYLEDLINK_MODELS = [
 
 ### Link Styles
 
-The developer can also define a number of link styles. These are "defined" by creating the appropriate CSS class and rules and adding this class to the StyledLinkStyle objects in the appropriate Administration panel.
+The developer can also define a number of link styles. These are "defined" by
+creating the appropriate CSS class and rules and adding this class to the
+StyledLinkStyle objects in the appropriate Administration panel.
 
-The template for the resulting link is carefully crafted using only <span>'s so that the link will work as a inline element and, with appropriate styling, as an inline-block or even block-level element.
+The template for the resulting link is carefully crafted using only <span>'s
+so that the link will work as a inline element and, with appropriate styling,
+as an inline-block or even block-level element.
 
-Note that the operator can choose multiple styles, so the CSS rules should allow for this.
+Note that the operator can choose multiple styles, so the CSS rules should
+allow for this.
 
 
 ## Preview of plugin
