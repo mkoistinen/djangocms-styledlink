@@ -168,7 +168,7 @@ class StyledLink(CMSPlugin):
     )
 
     target = models.CharField(_("target"),
-        blank=False,
+        blank=True,
         choices=((
             ("", _("same window")),
             ("_blank", _("new window")),
