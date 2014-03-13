@@ -25,7 +25,7 @@ CLASSIFIERS = [
 setup(
     name='djangocms-styledlink',
     version=__version__,
-    description='Link Plugin for django CMS',
+    description='A Universal, Styled Link Plugin for django CMS',
     author='Martin Koistinen',
     author_email='mkoistinen@gmail.com',
     url='https://github.com/mkoistinen/djangocms-styledlink',
