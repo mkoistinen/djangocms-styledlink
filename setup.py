@@ -36,5 +36,6 @@ setup(
     classifiers=CLASSIFIERS,
     long_description=open('README.md').read(),
     include_package_data=True,
-    zip_safe=False
+    zip_safe=False,
+    download_url='https://github.com/mkoistinen/djangocms-styledlink/tarball/0.1.1',
 )
