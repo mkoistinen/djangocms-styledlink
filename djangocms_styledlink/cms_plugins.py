@@ -35,7 +35,7 @@ class StyledLinkPlugin(CMSPluginBase):
                 self.base_fields = Form.base_fields
 
             def __call__(self, *args, **kwargs):
-                # instanciate the form on call
+                # instantiate the form on call
                 form = self.Form(*args, **kwargs)
                 return form
 
@@ -50,7 +50,10 @@ class StyledLinkPlugin(CMSPluginBase):
 
 
     def icon_src(self, instance):
-        return settings.STATIC_URL + u"cms/img/icons/plugins/link.png"
+        if not instance.link:
+            return settings.STATIC_URL + u'djangocms_styledlink/images/link-error.png'
+        else:
+            return settings.STATIC_URL + u'djangocms_styledlink/images/link.png'
 
 
 plugin_pool.register_plugin(StyledLinkPlugin)

@@ -15,14 +15,12 @@ from cms.models import CMSPlugin
 if hasattr(settings, 'DJANGOCMS_STYLEDLINK_MODELS'):
     DJANGOCMS_STYLEDLINK_MODELS = settings.DJANGOCMS_STYLEDLINK_MODELS
 else:
-    DJANGOCMS_STYLEDLINK_MODELS = {
-        'CMS Pages': {
-            'class_path': 'cms.models.Page',
-            'manager_method': 'published',
-            'filter': { 'publisher_is_draft': False },
-            'order_by': 'order',
-        }
-    }
+    DJANGOCMS_STYLEDLINK_MODELS = [{
+        'type': 'CMS Pages',
+        'class_path': 'cms.models.Page',
+        'manager_method': 'published',
+        'filter': { 'publisher_is_draft': False },
+    }]
 
 #
 # Let's make sure that we can load the given configuration...
@@ -140,9 +138,6 @@ class StyledLink(CMSPlugin):
     int_destination = generic.GenericForeignKey(
         'int_destination_type',
         'int_destination_id',
-        # Important! When the linked to object is deleted for any reason, we
-        # don't want a bunch of holes in copy all over the place.
-        on_delete=models.SET_NULL,
     )
 
     #
