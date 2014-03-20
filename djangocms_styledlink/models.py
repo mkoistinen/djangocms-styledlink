@@ -12,7 +12,7 @@ from django.contrib.contenttypes.models import ContentType
 from cms.models import CMSPlugin
 
 
-if settings.DJANGOCMS_STYLEDLINK_MODELS:
+if hasattr(settings, 'DJANGOCMS_STYLEDLINK_MODELS'):
     DJANGOCMS_STYLEDLINK_MODELS = settings.DJANGOCMS_STYLEDLINK_MODELS
 else:
     DJANGOCMS_STYLEDLINK_MODELS = {
@@ -113,7 +113,7 @@ class StyledLink(CMSPlugin):
     """
 
     label = models.CharField(_('link text'),
-        blank=False,
+        blank=True,
         default='',
         help_text=_("Required. The text that is linked."),
         max_length=255,
@@ -126,7 +126,6 @@ class StyledLink(CMSPlugin):
         max_length=255,
     )
 
-
     int_destination_type = models.ForeignKey(ContentType,
         null=True,
         blank=True,
@@ -138,7 +137,13 @@ class StyledLink(CMSPlugin):
         null=True,
     )
 
-    int_destination = generic.GenericForeignKey('int_destination_type', 'int_destination_id')
+    int_destination = generic.GenericForeignKey(
+        'int_destination_type',
+        'int_destination_id',
+        # Important! When the linked to object is deleted for any reason, we
+        # don't want a bunch of holes in copy all over the place.
+        on_delete=models.SET_NULL,
+    )
 
     #
     # Hash, for current page or internal page destination
@@ -149,7 +154,14 @@ class StyledLink(CMSPlugin):
         max_length=64,
     )
 
+    #
+    # See note in save()
+    #
+    int_hash = models.BooleanField(default=False)
+
+    #
     # External links
+    #
     ext_destination = models.TextField(_('external destination'),
         blank=True,
         default='',
@@ -190,28 +202,43 @@ class StyledLink(CMSPlugin):
     )
 
 
-    def copy_relations(self, oldinstance):
-        self.styles = oldinstance.styles.all()
-
     @property
     def link(self):
         """Returns the specified destination url"""
 
         if self.int_destination:
+            # This is an intra-site link and the destination object is still
+            # here, nice.
             url = self.int_destination.get_absolute_url()
             if self.page_destination:
+                # Oooh, look, it also has a hash component
                 return u'%s#%s' % (url, self.page_destination, )
             return url
-        elif self.page_destination:
+        elif self.page_destination and not self.int_hash:
+            # OK, this was just an intra-page hash
             return u'#%s' % (self.page_destination, )
         elif self.ext_destination:
+            # External link
             return self.ext_destination
         elif self.mailto:
+            # Mailto: link
             return u'mailto:%s' % (self.mailto, )
         else:
-            # Sane default?
-            return '#'
+            return ''
 
+    def save(self, **kwargs):
+        #
+        # We always need to remember if `page_destination` (hash) was set in
+        # the context of `int_destination` (internal cms page/model view)
+        # because if it was, and the `int_destination` object was subsequently
+        # deleted, then the page_destination by itself would mistakenly be
+        # applied to the *current* page.
+        #
+        self.int_hash = bool(self.int_destination and self.page_destination)
+        super(StyledLink, self).save(**kwargs)
+
+    def copy_relations(self, oldinstance):
+        self.styles = oldinstance.styles.all()
 
     def __unicode__(self):
         return self.label
