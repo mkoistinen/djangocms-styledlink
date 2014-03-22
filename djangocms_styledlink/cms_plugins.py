@@ -17,6 +17,7 @@ class StyledLinkPlugin(CMSPluginBase):
     name = _("Styled Link")
     render_template = "djangocms_styledlink/styled_link.html"
     text_enabled = True
+    allow_children = True
 
     def render(self, context, instance, placeholder):
         context.update({
@@ -50,10 +51,13 @@ class StyledLinkPlugin(CMSPluginBase):
 
 
     def icon_src(self, instance):
-        if not instance.link:
+        if instance.link == '':
             return settings.STATIC_URL + u'djangocms_styledlink/images/link-error.png'
         else:
             return settings.STATIC_URL + u'djangocms_styledlink/images/link.png'
+
+    def icon_alt(self, instance):
+        return u'%s - %s' % (self.name, instance.label)
 
 
 plugin_pool.register_plugin(StyledLinkPlugin)
