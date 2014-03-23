@@ -1,5 +1,14 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+
+#
+# NOTE: To update PyPI, tag the current release:
+# > git tag 0.1.3 -m "Version bump for PyPI"
+#
+# Then:
+# > python setup.py sdist upload
+#
+
 from setuptools import setup
 from djangocms_styledlink import __version__
 
