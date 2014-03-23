@@ -25,24 +25,39 @@ https://pypi.python.org/pypi/importlib/.
 pip install importlib
 ````
 
+Optional but Recommended
+------------------------
+
+If [`django-easy-select2`](https://github.com/asyncee/django-easy-select2) is
+available, its Select2 widget will be used in the plugin. This not only
+provides a much more attractive select box (the venerable
+[Select2](http://ivaynberg.github.io/select2/)). Note the screenshot below
+does **not** use select2, but standard Django ChoiceField's widget (a normal
+select element).
+
 
 ## Operator Configuration
 
 Operators can configure the link to go to:
 
-1.   A hash (works by itself for linking to an anchor on the current page, or on an internal object page);
+1.   A hash (works by itself for linking to an anchor on the current page, or
+     on an internal object page);
 2.   An internal object (more below);
 3.   An external URL;
-4.   A file-download (coming soon).
 
-In addition to being very flexible with the link destination, the operator can also affect:
+In addition to being very flexible with the link destination, the operator can
+also affect:
 
 1.   The linked text;
 2.   The link’s title attribute for browser implemented tooltips;
-3.   The target attribute to open the link in one of `same window` (default), `new window`, `parent window`, `top-most frame`;
-4.   Whether search engines should follow this link when indexing via the rel="nofollow" attribute.
+3.   The target attribute to open the link in one of `same window` (default),
+     `new window`, `parent window`, `top-most frame`;
+4.   Whether search engines should follow this link when indexing via the
+     rel="nofollow" attribute.
 5.   Zero or more styles as defined by the developer (see below);
 
+This widget is also 'allow_children' enabled, so, it can "wrap" other content
+plugins like images, but accepting them as children plugins.
 
 ## Developer Configuration
 
@@ -147,4 +162,3 @@ This is an animated GIF preview of the plugin UI for a ficticious set of data.
 It alternates between the plain form and with the drop-menu menu invoked.
 
 ![](repo_images/djangocms_styledlink-preview.gif?raw=true)
-
