@@ -25,8 +25,7 @@ https://pypi.python.org/pypi/importlib/.
 pip install importlib
 ````
 
-Optional but Recommended
-------------------------
+### Optional but Recommended
 
 If [`django-easy-select2`](https://github.com/asyncee/django-easy-select2) is
 available, its Select2 widget will be used in the plugin. This not only
@@ -41,24 +40,38 @@ Django ChoiceField's widget (a normal select element).
 
 Operators can configure the link to go to:
 
-1.   A hash (works by itself for linking to an anchor on the current page, or
-     on an internal object page);
-2.   An internal object (more below);
-3.   An external URL;
+*   A hash (works by itself for linking to an anchor on the current page, or
+    on an internal object page);
+*   An internal object (more below);
+*   An external URL;
 
 In addition to being very flexible with the link destination, the operator can
 also affect:
 
-1.   The linked text;
-2.   The link’s title attribute for browser implemented tooltips;
-3.   The target attribute to open the link in one of `same window` (default),
-     `new window`, `parent window`, `top-most frame`;
-4.   Whether search engines should follow this link when indexing via the
-     rel="nofollow" attribute.
-5.   Zero or more styles as defined by the developer (see below);
+*   The linked text;
+*   The link’s title attribute for browser implemented tooltips;
+*   The target attribute to open the link in one of `same window` (default),
+    `new window`, `parent window`, `top-most frame`;
+*   Whether search engines should follow this link when indexing via the
+    rel="nofollow" attribute.
+*   Zero or more styles as defined by the developer (see below);
 
-This widget is also 'allow_children' enabled, so, it can "wrap" other content
-plugins like images, but accepting them as children plugins.
+
+#### Other Features
+
+*   This plugin is also 'allow_children' enabled, so, it can "wrap" other
+    content plugins like images, by accepting them as children plugins;
+*   Destination model objects URLs are updated as they change, preventing
+    broken links in most cases.
+*   If the destination model object is deleted, this plugin will "decay" from
+    a link to normal text, so that broken links are not left all over
+    your project.
+
+#### Features coming soon!
+
+*   A management tool to assist in finding plugins whose destination objects
+    no longer exist.
+
 
 ## Developer Configuration
 
@@ -116,7 +129,7 @@ models, you should consider another solution until we can find another
 solution for this project.
 
 
-#### An example of mutliple types.
+#### An example of multiple types.
 
 ```` python
 DJANGOCMS_STYLEDLINK_MODELS = [
@@ -153,8 +166,21 @@ The template for the resulting link is carefully crafted using only `<span>`'s
 so that the link will work as a inline element and, with appropriate styling,
 as an inline-block or even block-level element.
 
-Note that the operator can choose multiple styles, so the CSS rules should
-allow for this.
+```` html
+<span class="plugin_styledlink [Selected StyledLink Style classnames]">
+    <span class="inner">
+        [ link and link content ]
+    </span>
+</span>
+````
+
+We've found this to be extremely flexible and allows for a wide variety of
+styles, but if you find this is too limiting, you may override the template in
+the normal Django manner.
+
+Note that the operator can choose **multiple** styles at the same time, so the
+CSS rules should allow for this, carefully considering how combinations of
+styles should render.
 
 
 ## Preview of plugin
