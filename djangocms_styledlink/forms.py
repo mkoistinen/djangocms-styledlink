@@ -82,6 +82,8 @@ class StyledLinkForm(ModelForm):
 
             if 'filter' in item:
                 queryset = queryset.filter(**item['filter'])
+            else:
+                queryset = queryset.all()
 
             if 'order_by' in item:
                 queryset = queryset.order_by(item['order_by'])
