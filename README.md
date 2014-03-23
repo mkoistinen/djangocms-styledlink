@@ -31,9 +31,10 @@ Optional but Recommended
 If [`django-easy-select2`](https://github.com/asyncee/django-easy-select2) is
 available, its Select2 widget will be used in the plugin. This not only
 provides a much more attractive select box (the venerable
-[Select2](http://ivaynberg.github.io/select2/)). Note the screenshot below
-does **not** use select2, but standard Django ChoiceField's widget (a normal
-select element).
+[Select2](http://ivaynberg.github.io/select2/)), but also provides enhanced
+useability by allow the operator to narrow the available choices by typing in
+string. Note the screenshot below does **not** use select2, but standard
+Django ChoiceField's widget (a normal select element).
 
 
 ## Operator Configuration
@@ -148,7 +149,7 @@ The developer can also define a number of link styles. These are "defined" by
 creating the appropriate CSS class and rules and adding this class to the
 StyledLinkStyle objects in the appropriate Administration panel.
 
-The template for the resulting link is carefully crafted using only <span>'s
+The template for the resulting link is carefully crafted using only `<span>`'s
 so that the link will work as a inline element and, with appropriate styling,
 as an inline-block or even block-level element.
 
