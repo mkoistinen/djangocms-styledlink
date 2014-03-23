@@ -45,7 +45,7 @@ class StyledLinkForm(ModelForm):
         int_destination = ChoiceField(
             required=False,
             help_text=_('Link to an internal destination.'),
-            widget=Select2(select2attrs={'width': 'auto'}),
+            widget=Select2(select2attrs={'width': '262px'}),
         )
     except:
         int_destination = ChoiceField(

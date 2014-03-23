@@ -3,8 +3,11 @@
 
 #
 # NOTE: To update PyPI, tag the current release:
-# > git tag 0.1.4 -m "Version bump for PyPI"
 #
+# First increment djangocms_styledlink/__init__.py
+# Then:
+# > git tag 0.1.5 -m "Version bump for PyPI"
+# > git push origin master
 # Then:
 # > python setup.py sdist upload
 #
