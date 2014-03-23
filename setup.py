@@ -3,7 +3,7 @@
 
 #
 # NOTE: To update PyPI, tag the current release:
-# > git tag 0.1.3 -m "Version bump for PyPI"
+# > git tag 0.1.4 -m "Version bump for PyPI"
 #
 # Then:
 # > python setup.py sdist upload
