@@ -33,11 +33,25 @@ class StyledLinkForm(ModelForm):
         help_text=_('Link to an external destination. Specify full absolute URL e.g. "http://blah.com/page.html".')
     )
 
-    # GenericForeignKey form field, will hold combined object_type and object_id
-    int_destination = ChoiceField(
-        required=False,
-        help_text=_('Link to an internal destination.')
-    )
+
+    #
+    # GenericForeignKey form field, will hold combined object_type and
+    # object_id. Also we attempt to use a easy-select2 widget, if it is
+    # available, if not, just use a regular ChoiceField and whatever widget
+    # Django uses for that (Select).
+    #
+    try:
+        from easy_select2.widgets import Select2
+        int_destination = ChoiceField(
+            required=False,
+            help_text=_('Link to an internal destination.'),
+            widget=Select2(select2attrs={'width': 'auto'}),
+        )
+    except:
+        int_destination = ChoiceField(
+            required=False,
+            help_text=_('Link to an internal destination.'),
+        )
 
     def __init__(self, *args, **kwargs):
         super(StyledLinkForm, self).__init__(*args, **kwargs)
