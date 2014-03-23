@@ -2,9 +2,9 @@
 
 import warnings
 from importlib import import_module
-
 from django.conf import settings
 from django.db import models
+from django.utils.encoding import force_unicode
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
@@ -221,6 +221,7 @@ class StyledLink(CMSPlugin):
         else:
             return ''
 
+
     def save(self, **kwargs):
         #
         # We always need to remember if `page_destination` (hash) was set in
@@ -230,10 +231,20 @@ class StyledLink(CMSPlugin):
         # applied to the *current* page.
         #
         self.int_hash = bool(self.int_destination and self.page_destination)
+
+        #
+        # As a convenience, if the operator omits the label, extract one from
+        # the linked model object.
+        #
+        if not self.label and self.int_destination:
+            self.label = force_unicode(self.int_destination)
+
         super(StyledLink, self).save(**kwargs)
+
 
     def copy_relations(self, oldinstance):
         self.styles = oldinstance.styles.all()
+
 
     def __unicode__(self):
         return self.label
