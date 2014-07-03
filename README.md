@@ -89,7 +89,7 @@ DJANGOCMS_STYLEDLINK_MODELS = [
     {
         'type': 'CMS Pages',
         'class_path': 'cms.models.Page',
-        'manager_method': 'published',
+        'manager_method': 'public',
         'filter': { 'publisher_is_draft': False },
     }
 ]
