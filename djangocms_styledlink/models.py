@@ -5,6 +5,7 @@ from importlib import import_module
 from django.conf import settings
 from django.db import models
 from django.utils.encoding import force_unicode
+from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
 from cms.models import CMSPlugin
