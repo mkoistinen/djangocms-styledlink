@@ -81,9 +81,17 @@ class StyledLinkForm(ModelForm):
                 queryset = getattr(queryset, item['manager_method'])()
 
             if 'filter' in item:
+                for (k, v) in item['filter'].items():
+                    try:
+                        # Attempt to execute any callables in the filter dict.
+                        item['filter'][k] = v()
+                    except TypeError:
+                        # OK, it wasn't a callable, so, leave it be
+                        pass
                 queryset = queryset.filter(**item['filter'])
             else:
-                queryset = queryset.all()
+                if not 'manager_method' in item:
+                    queryset = queryset.all()
 
             if 'order_by' in item:
                 queryset = queryset.order_by(item['order_by'])
