@@ -5,10 +5,8 @@ from importlib import import_module
 from django.conf import settings
 from django.db import models
 from django.utils.encoding import force_unicode
-from django.utils.translation import ugettext_lazy as _
 from django.contrib.contenttypes import generic
 from django.contrib.contenttypes.models import ContentType
-
 from cms.models import CMSPlugin
 
 
@@ -18,7 +16,7 @@ else:
     DJANGOCMS_STYLEDLINK_MODELS = [{
         'type': 'CMS Pages',
         'class_path': 'cms.models.Page',
-        'manager_method': 'published',
+        'manager_method': 'public',
         'filter': { 'publisher_is_draft': False },
     }]
 
@@ -48,9 +46,9 @@ for model in DJANGOCMS_STYLEDLINK_MODELS:
 
     ok = True
     if 'filter' in model:
-        for field in model['filter']:
+        for field in model['filter'].iterkeys():
             try:
-                cls._meta.get_field_by_name(field)
+                cls._meta.get_field_by_name(field.split('__')[0])
             except models.FieldDoesNotExist:
                 warnings.warn('StyledLink: Defined filter expression refers to a field (%s) in model %s that do not appear to exist. Skipping...' % (field, model['class_path'], ), SyntaxWarning)
                 ok = False
@@ -58,7 +56,6 @@ for model in DJANGOCMS_STYLEDLINK_MODELS:
     if not ok:
         continue
 
-    ok = True
     if 'order_by' in model:
         fields = model['order_by'].split(',')
         # Strip any leading -/+ chars
