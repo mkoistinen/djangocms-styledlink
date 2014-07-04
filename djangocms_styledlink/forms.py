@@ -3,7 +3,6 @@
 import re
 from importlib import import_module
 
-# from django.conf import settings
 from django.contrib.contenttypes.models import ContentType
 from django.forms import CharField, ChoiceField, Textarea
 from django.forms.models import ModelForm
