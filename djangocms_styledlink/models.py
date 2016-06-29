@@ -5,7 +5,14 @@ import warnings
 from importlib import import_module
 
 from django.conf import settings
-from django.contrib.contenttypes import generic
+
+try:
+    # see https://github.com/mkoistinen/djangocms-styledlink/issues/5
+    # for the reference.
+    from django.contrib.contenttypes.fields import GenericForeignKey
+except ImportError:
+    from django.contrib.contenttypes.generic import GenericForeignKey
+
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
 from django.utils.encoding import force_unicode
@@ -136,7 +143,7 @@ class StyledLink(CMSPlugin):
         null=True,
     )
 
-    int_destination = generic.GenericForeignKey(
+    int_destination = GenericForeignKey(
         'int_destination_type',
         'int_destination_id',
     )
