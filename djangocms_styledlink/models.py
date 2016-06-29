@@ -191,7 +191,6 @@ class StyledLink(CMSPlugin):
     styles = models.ManyToManyField(StyledLinkStyle,
         blank=True,
         default=None,
-        null=True,
         help_text=_('Optional. Choose one or more styles for this link.'),
         related_name='styled_link_style',
         verbose_name=_("link style"),
