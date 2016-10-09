@@ -40,7 +40,8 @@ class StyledLinkPlugin(CMSPluginBase):
                 form = self.Form(*args, **kwargs)
                 return form
 
-        if self.cms_plugin_instance.page and self.cms_plugin_instance.page.site:
+        if self.cms_plugin_instance and self.cms_plugin_instance.page and \
+            self.cms_plugin_instance.page.site:
             site = self.cms_plugin_instance.page.site
         elif self.page and self.page.site:
             site = self.page.site

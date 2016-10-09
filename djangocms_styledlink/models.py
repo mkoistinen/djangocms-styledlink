@@ -15,7 +15,12 @@ except ImportError:
 
 from django.contrib.contenttypes.models import ContentType
 from django.db import models
-from django.utils.encoding import force_unicode
+from django.utils.encoding import python_2_unicode_compatible
+try:
+    from django.utils.encoding import force_text
+except ImportError:
+    from django.utils.encoding import force_unicode as force_text
+
 from django.utils.translation import ugettext_lazy as _
 
 from cms.models import CMSPlugin
@@ -57,7 +62,7 @@ for model in DJANGOCMS_STYLEDLINK_MODELS:
 
     ok = True
     if 'filter' in model:
-        for field in model['filter'].iterkeys():
+        for field in model['filter']:
             try:
                 cls._meta.get_field_by_name(field.split('__')[0])
             except models.FieldDoesNotExist:
@@ -93,6 +98,7 @@ for model in DJANGOCMS_STYLEDLINK_MODELS:
     STYLEDLINK_MODELS.append(model)
 
 
+@python_2_unicode_compatible
 class StyledLinkStyle(models.Model):
 
     label = models.CharField(_('label'),
@@ -105,13 +111,14 @@ class StyledLinkStyle(models.Model):
         _('link class'),
         max_length=32,
         default='',
-        help_text=('The class to add to this link (do NOT preceed with a ".").'),
+        help_text=_('The class to add to this link (do NOT preceed with a ".").'),
     )
 
-    def __unicode__(self):
+    def __str__(self):
         return self.label
 
 
+@python_2_unicode_compatible
 class StyledLink(CMSPlugin):
 
     """
@@ -244,7 +251,7 @@ class StyledLink(CMSPlugin):
         # the linked model object.
         #
         if not self.label and self.int_destination:
-            self.label = force_unicode(self.int_destination)
+            self.label = force_text(self.int_destination)
 
         super(StyledLink, self).save(**kwargs)
 
@@ -253,5 +260,5 @@ class StyledLink(CMSPlugin):
         self.styles = oldinstance.styles.all()
 
 
-    def __unicode__(self):
+    def __str__(self):
         return self.label

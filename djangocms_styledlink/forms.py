@@ -104,7 +104,7 @@ class StyledLinkForm(ModelForm):
         object_choices = []
         object_choices.append(("", "--", ))
 
-        for group in sorted(available_objects):
+        for group in available_objects:
 
             obj_list = []
             for obj in group['objects']:
